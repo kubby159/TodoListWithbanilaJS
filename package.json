@@ -1,0 +1,12 @@
+{
+  "name": "practice",
+  "version": "1.0.0",
+  "description": "- 투두리스트 구현 - json-server를 활용해서 로컬에 REST API 구축 및 연동 - 기본적인 데이터 처리인 생성, 읽기, 수정, 삭제(CRUD)를 구현",
+  "main": "script.js",
+  "scripts": {
+    "db": "json-server --watch ./db.json --port 3001"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
