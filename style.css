@@ -29,6 +29,8 @@ button > i {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   box-shadow: 6px 6px 16px #91bff6;
 }
 
@@ -39,7 +41,7 @@ h2 {
 
 .header {
   width: 100%;
-  position: absolute;
+
   top: 0;
   left: 0;
   padding: 24px;
@@ -70,7 +72,8 @@ h2 {
 }
 
 .todos {
-  margin-top: 106px;
+  width: 100%;
+  margin-top: 24px;
   overflow: auto;
 }
 
@@ -89,7 +92,7 @@ h2 {
   align-items: center;
 }
 
-.content > input[type='checkbox'] {
+.content > input[type="checkbox"] {
   transform: scale(1.5);
   margin-left: 10px;
 }
@@ -101,7 +104,7 @@ h2 {
   width: 100%;
 }
 
-.content > input[type='text'] {
+.content > input[type="text"] {
   font-size: 16px;
   margin-left: 20px;
   padding-top: 4px;
@@ -130,7 +133,7 @@ h2 {
   appearance: auto !important;
 }
 
-.item input[type='text'] {
+.item input[type="text"] {
   display: none;
 }
 
