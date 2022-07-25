@@ -11,15 +11,17 @@
   const $todoInput = get(".todo_input");
 
   const createTodoElement = (item) => {
-    const { id, content } = item;
+    const { id, content, completed } = item;
     const $todoItem = document.createElement("div");
+    const isChecked = completed ? "checked" : "";
     $todoItem.classList.add("item");
     $todoItem.dataset.id = id;
     $todoItem.innerHTML = `
             <div class="content">
               <input
                 type="checkbox"
-                class='todo_checkbox' 
+                class='todo_checkbox'
+                ${isChecked} 
               />
               <label>${content}</label>
               <input type="text" value="${content}" />
@@ -84,11 +86,27 @@
       .catch((error) => console.error(error));
   };
 
+  // !toggleTodo
+  const toggleTodo = (e) => {
+    if (e.target.className !== "todo_checkbox") return;
+    const $item = e.target.closest(".item");
+    const id = $item.dataset.id;
+    const completed = e.target.checked;
+    fetch(`${API_URL}/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ completed }),
+    })
+      .then(getTodos)
+      .catch((error) => console.error(error));
+  };
+
   const init = () => {
     window.addEventListener("DOMContentLoaded", () => {
       getTodos();
     });
     $form.addEventListener("submit", addTodo);
+    $todos.addEventListener("click", toggleTodo);
   };
   init();
 })();
