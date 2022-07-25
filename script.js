@@ -101,12 +101,60 @@
       .catch((error) => console.error(error));
   };
 
+  // !changeEditMode
+  const changeEditMode = (e) => {
+    const $item = e.target.closest(".item");
+    const $label = $item.querySelector("label");
+    const $editInput = $item.querySelector('input[type="text"]');
+    const $contentButton = $item.querySelector(".content_buttons");
+    const $editButton = $item.querySelector(".edit_buttons");
+    const value = $editInput.value;
+    if (e.target.className === "todo_edit_button") {
+      $label.style.display = "none";
+      $editInput.style.display = "block";
+      $contentButton.style.display = "none";
+      $editButton.style.display = "block";
+      $editInput.focus();
+      $editInput.value = "";
+      $editInput.value = value;
+    }
+
+    if (e.target.className === "todo_edit_cancel_button") {
+      $label.style.display = "block";
+      $editInput.style.display = "none";
+      $contentButton.style.display = "block";
+      $editButton.style.display = "none";
+      $editInput.value = $label.innerText;
+    }
+  };
+
+  // !editTodo
+  const editTodo = (e) => {
+    if (e.target.className !== "todo_edit_confirm_button") return;
+    const $item = e.target.closest(".item");
+    const id = $item.dataset.id;
+    const editInput = $item.querySelector('input[type="text"]');
+    const content = editInput.value;
+
+    fetch(`${API_URL}/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ content }),
+    })
+      .then(getTodos)
+      .catch((error) => console.error(error));
+  };
+
   const init = () => {
     window.addEventListener("DOMContentLoaded", () => {
       getTodos();
     });
     $form.addEventListener("submit", addTodo);
     $todos.addEventListener("click", toggleTodo);
+    $todos.addEventListener("click", changeEditMode);
+    $todos.addEventListener("click", editTodo);
   };
   init();
 })();
